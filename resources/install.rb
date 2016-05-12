@@ -66,7 +66,9 @@ action_class do
   # return true if they match. Append .bad to the cached copy to prevent using it next time
   def validate_checksum(file_to_check)
     desired = fetch_checksum
-    actual = Digest::MD5.hexdigest(::File.read(file_to_check))
+    md5 = Digest::MD5.file file_to_check
+    actual = md5.hexdigest
+
 
     if desired == actual
       true
